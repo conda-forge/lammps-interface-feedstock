@@ -7,11 +7,11 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/lammps-interface-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/lammps-interface-{{ version }}.tar.gz
   sha256: e8c34f7d8e3cf73d15aa1aaddff246fdf036831a31eb158dc420200ebfbcdeb0
 
 build:
-  number: 0
+  number: 1
   noarch: python
   entry_points:
     - lammps-interface = lammps_interface.cli:main
@@ -20,12 +20,13 @@ build:
 requirements:
   host:
     - pip
-    - python >=3.6
+    - python {{ python_min }}
+    - setuptools
   run:
     - ase
     - networkx >=2.4
     - numpy
-    - python >=3.6
+    - python >={{ python_min }}
     - scipy
 
 test:
@@ -36,6 +37,7 @@ test:
     - lammps-interface --help
   requires:
     - pip
+    - python {{ python_min }}
 
 about:
   home: https://github.com/peteboyd/lammps_interface
