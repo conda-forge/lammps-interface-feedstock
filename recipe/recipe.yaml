@@ -15,7 +15,7 @@ source:
 build:
   number: 2
   noarch: python
-  script: ${{ PYTHON }} -m pip install . -vv
+  script: ${{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
   python:
     entry_points:
       - lammps-interface = lammps_interface.cli:main
@@ -37,7 +37,9 @@ tests:
       imports:
         - lammps_interface
       pip_check: true
-      python_version: ${{ python_min }}
+      python_version:
+        - ${{ python_min }}
+        - "*"
   - requirements:
       run:
         - pip
